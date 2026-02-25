@@ -1,0 +1,113 @@
+<!-- TODO: i18n — implementar con i18next o Astro i18n routing -->
+<nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+    <!-- Logo -->
+    <a href="#" class="flex items-center gap-3">
+      <img src="/logo.jpg" alt="Quiñones Services" class="w-10 h-10 rounded-full object-cover" />
+      <span class="hidden sm:inline nav-text text-xl font-bold font-[family-name:var(--font-heading)]">Quiñones Services</span>
+    </a>
+
+    <!-- Desktop Nav -->
+    <div class="hidden md:flex items-center gap-8">
+      <a href="#inicio" class="nav-text hover:text-terracota transition-colors font-medium">Inicio</a>
+      <a href="#servicios" class="nav-text hover:text-terracota transition-colors font-medium">Servicios</a>
+      <a href="#nosotros" class="nav-text hover:text-terracota transition-colors font-medium">Nosotros</a>
+      <a href="#galeria" class="nav-text hover:text-terracota transition-colors font-medium">Galeria</a>
+      <a href="#contacto" class="nav-text hover:text-terracota transition-colors font-medium">Contacto</a>
+
+      <!-- Language Toggle (visual only) -->
+      <button id="lang-toggle" class="flex items-center rounded-full border border-white/30 text-sm overflow-hidden lang-border">
+        <span id="lang-es" class="px-3 py-1 bg-terracota text-white font-semibold">ES</span>
+        <span id="lang-en" class="px-3 py-1 nav-text opacity-60">EN</span>
+      </button>
+    </div>
+
+    <!-- Mobile Hamburger -->
+    <button id="mobile-menu-btn" class="md:hidden flex flex-col gap-1.5 p-2" aria-label="Menu">
+      <span class="block w-6 h-0.5 nav-bar transition-all duration-300" id="bar1"></span>
+      <span class="block w-6 h-0.5 nav-bar transition-all duration-300" id="bar2"></span>
+      <span class="block w-6 h-0.5 nav-bar transition-all duration-300" id="bar3"></span>
+    </button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="md:hidden hidden bg-white/95 backdrop-blur-sm border-t border-arena shadow-lg">
+    <div class="px-4 py-4 flex flex-col gap-4">
+      <a href="#inicio" class="text-cafe hover:text-terracota transition-colors font-medium text-lg mobile-link">Inicio</a>
+      <a href="#servicios" class="text-cafe hover:text-terracota transition-colors font-medium text-lg mobile-link">Servicios</a>
+      <a href="#nosotros" class="text-cafe hover:text-terracota transition-colors font-medium text-lg mobile-link">Nosotros</a>
+      <a href="#galeria" class="text-cafe hover:text-terracota transition-colors font-medium text-lg mobile-link">Galeria</a>
+      <a href="#contacto" class="text-cafe hover:text-terracota transition-colors font-medium text-lg mobile-link">Contacto</a>
+    </div>
+  </div>
+</nav>
+
+<style>
+  /* Default state: white text over dark hero */
+  .nav-text { color: white; transition: color 0.3s; }
+  .nav-bar { background-color: white; transition: background-color 0.3s; }
+  .lang-border { border-color: rgba(255,255,255,0.3); transition: border-color 0.3s; }
+
+  /* Scrolled state: dark text on white bg */
+  nav.scrolled .nav-text { color: #3B2314; }
+  nav.scrolled .nav-bar { background-color: #3B2314; }
+  nav.scrolled .lang-border { border-color: rgba(59,35,20,0.2); }
+</style>
+
+<script>
+  // Solid on scroll — swap colors
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      navbar?.classList.add('bg-white/95', 'backdrop-blur-sm', 'shadow-md', 'scrolled');
+    } else {
+      navbar?.classList.remove('bg-white/95', 'backdrop-blur-sm', 'shadow-md', 'scrolled');
+    }
+  });
+
+  // Mobile menu toggle
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  const bar1 = document.getElementById('bar1');
+  const bar2 = document.getElementById('bar2');
+  const bar3 = document.getElementById('bar3');
+
+  btn?.addEventListener('click', () => {
+    menu?.classList.toggle('hidden');
+    bar1?.classList.toggle('rotate-45');
+    bar1?.classList.toggle('translate-y-2');
+    bar2?.classList.toggle('opacity-0');
+    bar3?.classList.toggle('-rotate-45');
+    bar3?.classList.toggle('-translate-y-2');
+  });
+
+  // Close mobile menu on link click
+  document.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', () => {
+      menu?.classList.add('hidden');
+      bar1?.classList.remove('rotate-45', 'translate-y-2');
+      bar2?.classList.remove('opacity-0');
+      bar3?.classList.remove('-rotate-45', '-translate-y-2');
+    });
+  });
+
+  // Language toggle (visual only)
+  const langToggle = document.getElementById('lang-toggle');
+  const langEs = document.getElementById('lang-es');
+  const langEn = document.getElementById('lang-en');
+
+  langToggle?.addEventListener('click', () => {
+    const isEs = langEs?.classList.contains('bg-terracota');
+    if (isEs) {
+      langEs?.classList.remove('bg-terracota', 'text-white', 'font-semibold');
+      langEs?.classList.add('text-cafe/60');
+      langEn?.classList.add('bg-terracota', 'text-white', 'font-semibold');
+      langEn?.classList.remove('text-cafe/60');
+    } else {
+      langEn?.classList.remove('bg-terracota', 'text-white', 'font-semibold');
+      langEn?.classList.add('text-cafe/60');
+      langEs?.classList.add('bg-terracota', 'text-white', 'font-semibold');
+      langEs?.classList.remove('text-cafe/60');
+    }
+  });
+</script>

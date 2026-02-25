@@ -1,0 +1,50 @@
+---
+const testimonials = [
+  {
+    name: 'Maria del Carmen Rivera',
+    text: 'Nos sellaron el techo y quedó como nuevo. Profesionales, puntuales y muy amables. Se nota la experiencia que tienen.',
+    service: 'Sellado de Techo',
+  },
+  {
+    name: 'Jose Luis Delgado',
+    text: 'Pintaron toda la casa por dentro y por fuera en tres días. El trabajo quedó impecable y los precios bien razonables.',
+    service: 'Pintura',
+  },
+  {
+    name: 'Carmen Ivette Santos',
+    text: 'La remodelación del baño quedó espectacular. Luis y su equipo fueron muy atentos a cada detalle. Los recomiendo 100%.',
+    service: 'Losetas y Remodelación',
+  },
+];
+
+const stars = '★★★★★';
+---
+
+<section class="py-20 bg-arena/30">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-cafe mb-4">
+        Lo Que Dicen Nuestros Clientes
+      </h2>
+      <div class="w-20 h-1 bg-terracota mx-auto rounded-full"></div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {testimonials.map((t) => (
+        <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-lg transition-shadow duration-300 relative">
+          <!-- Decorative quote -->
+          <span class="absolute top-4 right-6 text-6xl text-terracota/10 font-serif leading-none">"</span>
+
+          <div class="text-terracota text-xl mb-4 tracking-wider">{stars}</div>
+          <p class="text-cafe/80 leading-relaxed mb-6 italic">
+            "{t.text}"
+          </p>
+          <div class="border-t border-arena pt-4">
+            <p class="font-bold text-cafe">{t.name}</p>
+            <p class="text-sm text-olivo">{t.service}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
